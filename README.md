@@ -18,6 +18,5 @@ server {
 ## docker run-Befehl:
 
 ```
--e URL_PREFIX="https://example.com/"
--e ADMIN_PASSWORD="my-secret-password"
+docker run -d -p 9000:80 -e URL_PREFIX='http://localhost' -e ADMIN_PASSWORD='test123' srcmkr/linkshortener
 ```
