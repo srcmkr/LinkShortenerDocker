@@ -1,5 +1,6 @@
-﻿## Konfiguration für nginx
+## Konfiguration für nginx
 
+``
 server {
     listen   80;
     server_name example.com;
@@ -12,7 +13,11 @@ server {
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     }
 }
+``
 
 ## docker run-Befehl:
+
+``
 -e URL_PREFIX="https://example.com/"
 -e ADMIN_PASSWORD="my-secret-password"
+``
