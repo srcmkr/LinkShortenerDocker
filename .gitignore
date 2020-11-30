@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/LinkShortenerDocker/v16
+/LinkShortenerDocker/bin/Debug/net5.0
+/LinkShortenerDocker/obj
+/LinkShortenerDocker/Properties
+*.db

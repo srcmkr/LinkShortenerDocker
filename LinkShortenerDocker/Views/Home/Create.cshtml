@@ -1,0 +1,26 @@
+﻿@model LinkShortenerDocker.ViewModels.CreateLinkViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Link-Shortener mit docker</title>
+</head>
+<body>
+    <div style="padding:30px;">
+        <form asp-action="Create" asp-controller="Home" method="POST">
+            <p>
+                <input name="NewLink" style="font-size:18px;" placeholder="https://www..." /><br />
+                <input name="Password" style="font-size:18px;" type="password" placeholder="********" /><br />
+            </p>
+            <p>
+                <input type="submit" value="Link kürzen!" />
+            </p>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿@model LinkShortenerDocker.ViewModels.CreatedLinkViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PostCreate</title>
+</head>
+<body>
+    <div style="padding:30px;">
+        <h3>link gekürzt:</h3>
+        <p>@Model.NewLink => <strong>@Model.LinkHash</strong></p>
+    </div>
+</body>
+</html>
