@@ -4,9 +4,9 @@ using LinkShortenerDocker.Models;
 using LinkShortenerDocker.ViewModels;
 using LiteDB;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 
 namespace LinkShortenerDocker.Controllers
 {
@@ -17,12 +17,13 @@ namespace LinkShortenerDocker.Controllers
         private string UrlPrefix; // "https://d3v.to/l"
         private string AdminPassword;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             _hashId = new Hashids();
             UrlPrefix = EnvironmentHelpers.GetEnvironmentVariable("URL_PREFIX");
             AdminPassword = EnvironmentHelpers.GetEnvironmentVariable("ADMIN_PASSWORD");
+            if (!Directory.Exists("persistence")) Directory.CreateDirectory("persistence");
         }
 
         [HttpGet("{id}")]
@@ -36,7 +37,7 @@ namespace LinkShortenerDocker.Controllers
                 var linkIds = _hashId.Decode(id);
                 if (linkIds.Length > 0) linkId = linkIds[0];
 
-                using var db = new LiteDatabase("linkshortener.db");
+                using var db = new LiteDatabase("persistence/linkshortener.db");
                 var col = db.GetCollection<LinkModel>("links");
                 var foundLink = col.FindOne(c => c.Id == linkId);
                 if (foundLink != null) 
@@ -70,7 +71,7 @@ namespace LinkShortenerDocker.Controllers
 
             try
             {
-                using var db = new LiteDatabase("linkshortener.db");
+                using var db = new LiteDatabase("persistence/linkshortener.db");
                 var col = db.GetCollection<LinkModel>("links");
                 var newIdInt = col.Insert(new LinkModel { RedirectTargetUrl = vm.NewLink });
                 var newIdHashed = _hashId.Encode(newIdInt);
